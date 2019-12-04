@@ -21,7 +21,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin {
 
     return Scaffold(
       body: Center(
-        child: Text(_globalData.getAssetPathEntityList==null?"0":_globalData.getAssetPathEntityList.length.toString()),
+        child: Text(_globalData.getAssetPathEntityList.length.toString()),
       ),
     );
   }

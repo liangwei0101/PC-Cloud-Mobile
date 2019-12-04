@@ -8,11 +8,11 @@ import 'package:photo_manager/photo_manager.dart';
 /// date 2019-12-03
 
 class GlobalDataModel with ChangeNotifier {
-  List<AssetPathEntity> _assetPathEntityList;
+  List<AssetPathEntity> _assetPathEntityList = new List();
 
   List<AssetPathEntity> get getAssetPathEntityList => _assetPathEntityList;
 
-  List<UploadFile> _uploadingFileList;
+  List<UploadFile> _uploadingFileList = new List();
 
   List<UploadFile> get getUploadingFileList => _uploadingFileList;
 
