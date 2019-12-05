@@ -15,14 +15,30 @@ class _UploadingState extends State<Uploading>
     with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
+    final _maxUploadAmount = 10;
     final _globalData = Provider.of<GlobalDataModel>(context);
 
     void uploadFile() async {
       var assetPathEntityList = _globalData.getAssetPathEntityList[1];
       var imageList = await assetPathEntityList.assetList;
+
       for (var i = 0; i < imageList.length; i++) {
-        var aa = await imageList[i].file;
-        var aa1 = await HttpUtil.uploadFiles(aa);
+        // 如果文件数 > 最大上次文件数
+        if (i + _maxUploadAmount < imageList.length) {
+          var futureTaskList = new List<Future>();
+          // 开启最大上传数------------代码开始
+          for(var j=0;j<_maxUploadAmount;j++){
+            var fileTemp = await imageList[i].file;
+            Future<dynamic> task = HttpUtil.uploadFiles(fileTemp);
+            i++;
+            futureTaskList.add(task);
+          }
+          Future.wait(futureTaskList);
+          // 开启最大上传数------------代码结束
+        } else {
+          var file = await imageList[i].file;
+          HttpUtil.uploadFiles(file);
+        }
       }
     }
 
