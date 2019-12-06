@@ -23,6 +23,18 @@ class HttpUtil {
   static const String PATCH = 'patch';
   static const String DELETE = 'delete';
 
+  static Future<dynamic> test() async {
+    FormData formData = FormData.fromMap({
+    });
+
+    var dio = getInstance();
+
+    var response = await dio.request('/',
+        data: formData,
+        options: new Options(method: 'POST'));
+    return response;
+  }
+
   static Future<dynamic> uploadFiles(File file) async {
     FormData formData = FormData.fromMap({
       "path": file.path,
@@ -35,7 +47,7 @@ class HttpUtil {
         data: formData,
         options: new Options(method: 'POST'),
         onSendProgress: (int sent, int total){
-          print("$sent $total");
+          print(((sent/total)*100).toString() + "%");
         });
 
     return response;
