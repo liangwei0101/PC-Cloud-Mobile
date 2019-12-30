@@ -33,7 +33,7 @@ class _FileAndFolderState extends State<FileAndFolder>
                 itemCount: _globalData.getAssetPathEntityList.length,
                 itemBuilder: (BuildContext context, int index) {
                   return _buildFolderItem(
-                      _globalData.getAssetPathEntityList[index]);
+                      _globalData.getAssetPathEntityList[index], context);
                 },
               )));
   }
@@ -50,26 +50,74 @@ loadFolder(
   }
 }
 
-Widget _buildFolderItem(AssetPathEntity assetPathEntity) {
+Widget _buildFolderItem(AssetPathEntity assetPathEntity, BuildContext context) {
   return InkWell(
-    child: Container(
-      decoration: BoxDecoration(
-        border:
-            Border(bottom: BorderSide(width: 0.5, color: Color(0xffe5e5e5))),
-      ),
-      child: ListTile(
+      child: Container(
+          decoration: BoxDecoration(
+            border: Border(
+                bottom: BorderSide(width: 0.5, color: Color(0xffe5e5e5))),
+          ),
+          child:
+//          CheckboxListTile(
+//            secondary: Image.asset('assets/images/folder.png'),
+//            title: Row(
+//              children: <Widget>[
+//                Expanded(
+//                    child: Text(
+//                  assetPathEntity.name,
+//                  style: TextStyle(fontSize: 14),
+//                )),
+//                Text(
+//                  '${assetPathEntity.assetCount}项',
+//                  style: TextStyle(color: Colors.grey, fontSize: 13),
+//                ),
+//
+//              ],
+//            ),
+//            value: true,
+//
+//          )
+      ListTile(
         leading: Image.asset('assets/images/folder.png'),
         title: Row(
           children: <Widget>[
-            Expanded(child: Text(assetPathEntity.name)),
+            Expanded(child: Text(assetPathEntity.name, style: TextStyle(fontSize: 14),)),
             Text(
               '${assetPathEntity.assetCount}项',
-              style: TextStyle(color: Colors.grey,fontSize: 14),
+              style: TextStyle(color: Colors.grey,fontSize: 13),
             )
           ],
         ),
-        trailing: Icon(Icons.chevron_right),
+        trailing: Icon(Icons.check,size: 12,color: Colors.green,),
+        onLongPress: (){
+          showModalBottomSheet<void>(
+            context: context,
+            builder: (BuildContext context) => const _DemoDrawer(),
+          );
+        },
+//        trailing: Icon(Icons.check,size: 12,color: Colors.green,),
       ),
-    )
-  );
+          ));
+}
+
+class _DemoDrawer extends StatelessWidget {
+  const _DemoDrawer();
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: Column(
+        children: const <Widget>[
+          ListTile(
+            leading: Icon(Icons.search),
+            title: Text('Search'),
+          ),
+          ListTile(
+            leading: Icon(Icons.threed_rotation),
+            title: Text('3D'),
+          ),
+        ],
+      ),
+    );
+  }
 }
