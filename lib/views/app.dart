@@ -5,7 +5,9 @@ import 'package:pc_cloud/views/uploading.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:provider/provider.dart';
 import 'fileAndFolder.dart';
+import 'folder.dart';
 import 'home.dart';
+import 'imageShow.dart';
 import 'my.dart';
 
 ///
@@ -26,6 +28,8 @@ class _MainPageState extends State<App> with SingleTickerProviderStateMixin {
         title: Text('首页'), icon: CustomerIcon24(Icons.home)),
     BottomNavigationBarItem(
         title: Text('文件'), icon: CustomerIcon24(Icons.sd_storage)),
+    BottomNavigationBarItem(
+        title: Text('浏览'), icon: CustomerIcon24(Icons.ac_unit)),
     BottomNavigationBarItem(
         title: Text('上传'), icon: CustomerIcon24(Icons.backup)),
     BottomNavigationBarItem(
@@ -73,6 +77,7 @@ class _MainPageState extends State<App> with SingleTickerProviderStateMixin {
             children: [
               Home(),
               FileAndFolder(),
+              GridPhoto(),
               Uploading(),
               My(),
             ]),
