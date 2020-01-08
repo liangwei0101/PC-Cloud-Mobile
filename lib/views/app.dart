@@ -76,7 +76,7 @@ class _MainPageState extends State<App> with SingleTickerProviderStateMixin {
             controller: _controller,
             children: [
               Home(),
-              FileAndFolder(),
+              Folder(),
               GridPhoto(),
               Uploading(),
               My(),
