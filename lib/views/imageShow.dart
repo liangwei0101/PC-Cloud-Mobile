@@ -110,6 +110,8 @@ class _GridPhotoItemStatus extends State<GridPhotoItem> {
         String fileTypeName = file.path.substring(index, file.path.length);
         switch (fileTypeName) {
           case '.jpg':
+          case '.JPG':
+          case '.gif':
           case '.jpeg':
           case '.png':
             widget = Image.file(
@@ -118,7 +120,7 @@ class _GridPhotoItemStatus extends State<GridPhotoItem> {
             );
             break;
           case '.mp4':
-            widget = VideoComponent(file: file);
+            widget = VideoComponent(file);
             break;
           default:
             widget = null;

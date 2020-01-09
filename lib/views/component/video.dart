@@ -33,9 +33,6 @@ class VideoCard extends StatelessWidget {
 
   Widget _buildFullScreenVideo() {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
       body: Center(
         child: AspectRatio(
           aspectRatio: 3 / 2,
@@ -78,7 +75,6 @@ class VideoCard extends StatelessWidget {
       child: Card(
         child: Column(
           children: <Widget>[
-            ListTile(title: Text(title), subtitle: Text(subtitle)),
             GestureDetector(
               onTap: pushFullScreenWidget,
               child: _buildInlineVideo(),

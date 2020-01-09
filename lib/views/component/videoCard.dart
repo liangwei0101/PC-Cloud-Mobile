@@ -9,14 +9,18 @@ import 'package:video_player/video_player.dart';
 /// @author Liang Wei
 /// date 2020-01-08
 
+File _file;
+
 class VideoComponent extends StatefulWidget {
-  VideoComponent({this.file});
+  VideoComponent(File file){
+    _file = file;
+  }
 
   File file;
   static const String routeName = '/video';
 
   @override
-  _VideoDemoState createState() => _VideoDemoState(file);
+  _VideoDemoState createState() => _VideoDemoState();
 }
 
 final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
@@ -26,13 +30,8 @@ Future<bool> isIOSSimulator() async {
 }
 
 class _VideoDemoState extends State<VideoComponent> with SingleTickerProviderStateMixin {
-  static File file;
 
-  _VideoDemoState(File file){
-    file = file;
-  }
-
-  final VideoPlayerController butterflyController = VideoPlayerController.file(file);
+  final VideoPlayerController butterflyController = VideoPlayerController.file(_file);
 
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final Completer<void> connectedCompleter = Completer<void>();
@@ -75,9 +74,6 @@ class _VideoDemoState extends State<VideoComponent> with SingleTickerProviderSta
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      appBar: AppBar(
-        title: const Text('Videos'),
-      ),
       body: isSupported
           ? ConnectivityOverlay(
         child: Scrollbar(
