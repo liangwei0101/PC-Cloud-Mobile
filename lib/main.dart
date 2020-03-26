@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:photo_manager/photo_manager.dart';
 
@@ -29,6 +30,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  List<File> fileList = new List();
 
   @override
   void initState() {
@@ -47,10 +49,13 @@ class _MyHomePageState extends State<MyHomePage> {
     var result = await PhotoManager.requestPermission();
     if (result) {
       List<AssetPathEntity> list = await PhotoManager.getAssetPathList();
-      List<AssetEntity> imageList = await list[13].assetList;
-      print(imageList);
-      for(var item in imageList) {
-
+      List<AssetEntity> assetEntityList = await list[13].assetList;
+      print(assetEntityList);
+      for (var item in assetEntityList) {
+        File file = await item.file;
+        if (fileList.length < 10) {
+          fileList.add(file);
+        }
       }
     }
   }
